@@ -15,11 +15,9 @@ namespace AwsEC2.StopInstances
 
             var helper = new EC2OperationsHelper();
 
-            // First, obtain instance ids to stop
             var describeOperation = await helper.GetInstancesByTag(Constants.AUTO_STOP_TAG);
             LambdaLogger.Log(describeOperation.OperationReport);
 
-            // Stop instances based on the returned ids
             var changeOperation = await helper.StopEC2InstancesByInstanceIds(describeOperation.InstanceIds);
             LambdaLogger.Log(changeOperation.OperationReport);
 
